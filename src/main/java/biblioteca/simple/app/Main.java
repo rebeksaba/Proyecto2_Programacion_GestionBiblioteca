@@ -1,14 +1,32 @@
 package biblioteca.simple.app;
 
+import biblioteca.simple.modelo.Formato;
+import biblioteca.simple.modelo.Libro;
+import biblioteca.simple.modelo.Usuario;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
 
-    //crear objeto catalogo
-    //lista usuarios
-    //carga de 4 libros + 4 peliculas
-    //carga de 4 usuarios
+   private static final Catalogo catalogo = new Catalogo();
 
-    //menú (1.Listar, 2.Buscar por título, 3.Buscar por año,
-    //4.Prestar (¿qué producto? ¿qué usuario? ¿prestado o no?
-    //5.Devolver
-    //6.Salir
+   private static final List<Usuario> usuarios =new ArrayList<>();
+
+   private static final Scanner sc = new Scanner (System.in);
+
+    private static void main(String[] args) {
+        cargarDatos();
+        menu();
+    }
+
+    private static void cargarDatos(){
+        catalogo.alta(new Libro(1, "El Quijote", "1605", Formato.FISICO, """));
+    }
+
+
+
+
+
 }
