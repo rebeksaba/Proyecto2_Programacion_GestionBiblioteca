@@ -33,6 +33,10 @@ public class Main {
         catalogo.alta(new Pelicula(3, "El Padrino", "1972", Formato.FISICO, "rancis Ford Coppola", 175));
         catalogo.alta(new Pelicula(4, "Parásitos", "2019", Formato.FISICO, "Bong Joon-ho", 132));
 
+        //Videojuegos añadidos al catálogo
+        catalogo.alta(new Videojuego(5, "Animal Crossing: New Horizons", "2020", Formato.DIGITAL, "Farmeo", "Nintendo",  true));
+        catalogo.alta(new Videojuego(6, "Hogwarts Legacy", "2023", Formato.DIGITAL, "Mundo abierto", "PS5",  true));
+
         usuarios.add(new Usuario(1, "Juan"));
         usuarios.add(new Usuario(2, "María"));
 
@@ -52,6 +56,7 @@ public class Main {
             System.out.println("5. Devolver Producto");
             System.out.println("6. Exportar Usuarios");
             System.out.println("7. Importar Usuarios");
+            System.out.println("8. Crear Usuario");  // Añadido al menú "Crear Usuario"
             System.out.println("0. Salir");
             while(!sc.hasNextInt()) sc.next();
             op = sc.nextInt();
@@ -66,6 +71,7 @@ public class Main {
                 case 5 -> devolver();
                 case 6 -> exportarUsuarios();
                 case 7 -> importarUsuarios();
+                case 8 -> crearUsuario(); // Creado el nuevo método "crearUsuario"
                 case 0 -> System.out.println("Sayonara!");
                 default -> System.out.println("Opción no válida");
             }
@@ -166,11 +172,23 @@ public class Main {
         Usuario u1 = getUsuarioPorCodigo(cUsuario);
 
         if (u1 == null){
-            System.out.println("Usuari ono encontrado");
+            System.out.println("Usuario no encontrado. Quieres crear uno? (s/n)");
+            String respuesta = sc.nextLine();
+            if (respuesta.equalsIgnoreCase("s")) {
+                System.out.println("Introduce el nombre: ");
+                String nombreNuevo = sc.nextLine();
+                u1 = new Usuario(cUsuario, nombreNuevo);
+                usuarios.add(u1);
+                System.out.println("Usuario creado. ");
+            }else {
+                System.out.println("Ok!, volvamos al menú. ");
+                return;
+            }
         }
 
         Prestable pPrestable = (Prestable) pEncontrado;
         pPrestable.prestar(u1);
+        System.out.println("Producto prestado a " + u1.getNombre());
 
     }
 
@@ -242,6 +260,18 @@ public class Main {
         }
     }
 
+    private static void crearUsuario() {
+        System.out.println("Introduce el código del usuario: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Introduce nombre del usuario: ");
+        String nombre = sc.nextLine();
+
+        Usuario nuevo = new Usuario(id, nombre);
+        usuarios.add(nuevo);
+        System.out.println("Nuevo usuario creado correctamente: " + nuevo.getNombre());
+    }
 
 
 }
